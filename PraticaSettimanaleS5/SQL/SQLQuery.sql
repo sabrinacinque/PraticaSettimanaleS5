@@ -33,3 +33,30 @@ CREATE TABLE StatiSpedizioni (
     DataAggiornamento DATETIME NOT NULL,
     FOREIGN KEY (SpedizioneId) REFERENCES Spedizioni(SpedizioneId)
 );
+
+
+INSERT INTO Clienti (Nome, ÈAzienda, CodiceFiscale, PartitaIVA, Indirizzo, Città, NumeroTelefono, Email)
+VALUES 
+('Mario Rossi', 0, 'MRORSS80A01H501U', NULL, 'Via Roma, 1', 'Roma', '0123456789', 'mario.rossi@example.com'),
+('ACME S.p.A.', 1, NULL, '12345678901', 'Via Milano, 5', 'Milano', '0987654321', 'info@acme.com');
+
+
+INSERT INTO Spedizioni (ClienteId, NumeroTracking, DataSpedizione, Peso, CittàDestinazione, IndirizzoDestinazione, NomeDestinatario, CostoSpedizione, DataConsegnaPrevista)
+VALUES 
+(1, 'TRACK123', '2023-07-10T00:00:00', 2.5, 'Napoli', 'Via Napoli, 10', 'Luigi Verdi', 15.75, '2023-07-12T00:00:00'),
+(2, 'TRACK456', '2023-07-11T00:00:00', 5.0, 'Torino', 'Corso Torino, 20', 'Giovanni Bianchi', 25.50, '2023-07-14T00:00:00');
+
+
+SELECT SpedizioneId, NumeroTracking FROM Spedizioni;
+
+INSERT INTO StatiSpedizioni (SpedizioneId, Stato, Luogo, Descrizione, DataAggiornamento)
+VALUES 
+(3, 'In transito', 'Roma', 'Partito dal centro di smistamento', '2023-07-10T10:00:00'),
+(3, 'In consegna', 'Napoli', 'In consegna al destinatario', '2023-07-12T08:00:00'),
+(4, 'In transito', 'Milano', 'Partito dal centro di smistamento', '2023-07-11T11:00:00'),
+(4, 'In consegna', 'Torino', 'In consegna al destinatario', '2023-07-14T09:00:00');
+
+
+SELECT * FROM SPEDIZIONI;
+
+SELECT * FROM CLIENTI;

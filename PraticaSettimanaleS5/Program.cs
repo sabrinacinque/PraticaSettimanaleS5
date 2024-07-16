@@ -1,15 +1,23 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PraticaSettimanaleS5.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Aggiungere servizi al contenitore.
 builder.Services.AddControllersWithViews();
+
+// Registrare il servizio ShipmentService
+builder.Services.AddTransient<IShipmentService, ShipmentService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configurazione della pipeline delle richieste HTTP.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

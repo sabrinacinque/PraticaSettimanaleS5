@@ -1,6 +1,51 @@
 ﻿@{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = "Traccia la tua spedizione";
+    var updates = ViewBag.Updates as IEnumerable<PraticaSettimanaleS5.Models.StatoSpedizione>;
 }
 
+<h1>Traccia la tua spedizione</h1>
 
-<h1 class="text-center">Ricerca spedizione</h1>
+<form method="post" asp-action="Search">
+    <div class="mb-3">
+        <label for="idNumber" class="form-label">Codice Fiscale / Partita IVA</label>
+        <input type="text" class="form-control" id="idNumber" name="idNumber" required>
+    </div>
+    <div class="mb-3">
+        <label for="trackingNumber" class="form-label">Numero di Spedizione</label>
+        <input type="text" class="form-control" id="trackingNumber" name="trackingNumber" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Traccia</button>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+@if (updates != null && updates.Any())
+{
+    <h2>Aggiornamenti della Spedizione</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Data Aggiornamento</th>
+                <th>Stato</th>
+                <th>Luogo</th>
+                <th>Descrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var update in updates)
+            {
+                <tr>
+                    <td>@update.DataAggiornamento</td>
+                    <td>@update.Stato</td>
+                    <td>@update.Luogo</td>
+                    <td>@update.Descrizione</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
