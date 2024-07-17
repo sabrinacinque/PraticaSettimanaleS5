@@ -56,7 +56,20 @@ VALUES
 (4, 'In transito', 'Milano', 'Partito dal centro di smistamento', '2023-07-11T11:00:00'),
 (4, 'In consegna', 'Torino', 'In consegna al destinatario', '2023-07-14T09:00:00');
 
-
+USE ESHipping;
 SELECT * FROM SPEDIZIONI;
 
+SELECT * FROM STATISPEDIZIONI;
+
 SELECT * FROM CLIENTI;
+
+
+CREATE TABLE Users (
+    Id INT PRIMARY KEY IDENTITY,
+    Username NVARCHAR(100) NOT NULL,
+    Password NVARCHAR(100) NOT NULL,
+    FriendlyName NVARCHAR(100)
+);
+
+INSERT INTO Users (Username, Password, FriendlyName)
+VALUES ('admin', 'adminpassword', 'Administrator');

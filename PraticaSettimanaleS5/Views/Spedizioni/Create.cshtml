@@ -1,0 +1,52 @@
+﻿@model PraticaSettimanaleS5.Models.Spedizione
+
+<h1>Aggiungi Spedizione</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="NumeroTracking" class="control-label"></label>
+        <input asp-for="NumeroTracking" class="form-control" />
+        <span asp-validation-for="NumeroTracking" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClienteId" class="control-label"></label>
+        <input asp-for="ClienteId" class="form-control" />
+        <span asp-validation-for="ClienteId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataSpedizione" class="control-label"></label>
+        <input asp-for="DataSpedizione" class="form-control" />
+        <span asp-validation-for="DataSpedizione" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Peso" class="control-label"></label>
+        <input asp-for="Peso" class="form-control" />
+        <span asp-validation-for="Peso" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CittàDestinazione" class="control-label"></label>
+        <input asp-for="CittàDestinazione" class="form-control" />
+        <span asp-validation-for="CittàDestinazione" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IndirizzoDestinazione" class="control-label"></label>
+        <input asp-for="IndirizzoDestinazione" class="form-control" />
+        <span asp-validation-for="IndirizzoDestinazione" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NomeDestinatario" class="control-label"></label>
+        <input asp-for="NomeDestinatario" class="form-control" />
+        <span asp-validation-for="NomeDestinatario" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CostoSpedizione" class="control-label"></label>
+        <input asp-for="CostoSpedizione" class="form-control" />
+        <span asp-validation-for="CostoSpedizione" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DataConsegnaPrevista" class="control-label"></label>
+        <input asp-for="DataConsegnaPrevista" class="form-control" />
+        <span asp-validation-for="DataConsegnaPrevista" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salva</button>
+</form>

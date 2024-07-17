@@ -1,0 +1,32 @@
+﻿@model PraticaSettimanaleS5.Models.StatoSpedizione
+
+<h1>Aggiorna Stato Spedizione</h1>
+
+<form asp-action="UpdateStatus" method="post">
+    <div class="form-group">
+        <label asp-for="NumeroTracking" class="control-label">Numero di Tracking</label>
+        <input asp-for="NumeroTracking" class="form-control" />
+        <span asp-validation-for="NumeroTracking" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Stato" class="control-label">Stato</label>
+        <select asp-for="Stato" class="form-control">
+            <option value="In transito">In transito</option>
+            <option value="In consegna">In consegna</option>
+            <option value="Consegnato">Consegnato</option>
+            <option value="Non consegnato">Non consegnato</option>
+        </select>
+        <span asp-validation-for="Stato" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Luogo" class="control-label">Luogo</label>
+        <input asp-for="Luogo" class="form-control" />
+        <span asp-validation-for="Luogo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descrizione" class="control-label">Descrizione</label>
+        <textarea asp-for="Descrizione" class="form-control"></textarea>
+        <span asp-validation-for="Descrizione" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Aggiorna Stato</button>
+</form>

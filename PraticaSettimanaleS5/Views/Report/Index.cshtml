@@ -1,0 +1,63 @@
+﻿@model PraticaSettimanaleS5.Models.ReportViewModel
+
+<h1>Report Spedizioni</h1>
+
+<h2>Spedizioni in consegna</h2>
+@if (Model.TodayShipments.Count == 0)
+{
+    <p>Nessuna spedizione in consegna.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numero Tracking</th>
+                <th>Data Spedizione</th>
+                <th>Peso</th>
+                <th>Città Destinazione</th>
+                <th>Indirizzo Destinazione</th>
+                <th>Nome Destinatario</th>
+                <th>Costo Spedizione</th>
+                <th>Data Consegna Prevista</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var spedizione in Model.TodayShipments)
+            {
+                <tr>
+                    <td>@spedizione.NumeroTracking</td>
+                    <td>@spedizione.DataSpedizione</td>
+                    <td>@spedizione.Peso</td>
+                    <td>@spedizione.CittàDestinazione</td>
+                    <td>@spedizione.IndirizzoDestinazione</td>
+                    <td>@spedizione.NomeDestinatario</td>
+                    <td>@spedizione.CostoSpedizione</td>
+                    <td>@spedizione.DataConsegnaPrevista</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>Numero di spedizioni totali in attesa di consegna</h2>
+<p>@Model.PendingShipmentsCount</p>
+
+<h2>Numero totale delle spedizioni per città destinataria</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Città Destinazione</th>
+            <th>Numero Spedizioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.ShipmentsByCity)
+        {
+            <tr>
+                <td>@entry.Key</td>
+                <td>@entry.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>

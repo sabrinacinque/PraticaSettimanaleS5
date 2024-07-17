@@ -1,0 +1,29 @@
+﻿@model IEnumerable<PraticaSettimanaleS5.Models.Cliente>
+
+<h1>Clienti</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Codice Fiscale</th>
+            <th>Partita IVA</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>@cliente.Nome</td>
+                <td>@cliente.CodiceFiscale</td>
+                <td>@cliente.PartitaIVA</td>
+                <td>
+                    <!-- Link per modificare e cancellare -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Aggiungi Cliente</a>

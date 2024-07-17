@@ -1,8 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using PraticaSettimanaleS5.Models;
 using PraticaSettimanaleS5.Services;
-using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace PraticaSettimanaleS5.Controllers
@@ -24,13 +23,6 @@ namespace PraticaSettimanaleS5.Controllers
         public IActionResult Contacts()
         {
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult SubmitContact(string firstName, string lastName, string email, string message)
-        {
-            // Non fare nulla con i dati al momento
-            return Ok();
         }
 
         public IActionResult Search()
