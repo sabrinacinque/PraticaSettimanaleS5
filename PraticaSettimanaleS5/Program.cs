@@ -3,27 +3,30 @@ using PraticaSettimanaleS5.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Aggiungere servizi al contenitore.
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Configurazione dell'autenticazione
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(opt =>
-    {
-        // Pagina alla quale l'utente sarà indirizzato se non è stato già riconosciuto
+    .AddCookie(opt => {
         opt.LoginPath = "/Account/Login";
     });
 
+// Configurazione delle policy di autorizzazione
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("EmployeePolicy", policy => policy.RequireRole("Employee", "Admin")); // Entrambi i ruoli possono accedere
+});
+
 // Configurazione del servizio di gestione delle autenticazioni
 builder.Services.AddScoped<IAuthService, AuthService>();
-
-// Registrare il servizio ShipmentService
-builder.Services.AddTransient<IShipmentService, ShipmentService>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>(); // Aggiungi questa linea per registrare IShipmentService
 
 var app = builder.Build();
 
-// Configurazione della pipeline delle richieste HTTP.
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -32,9 +35,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

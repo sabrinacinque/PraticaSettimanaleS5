@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PraticaSettimanaleS5.Models;
 using PraticaSettimanaleS5.Services;
@@ -8,10 +7,12 @@ namespace PraticaSettimanaleS5.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
         private readonly IShipmentService _shipmentService;
 
-        public HomeController(IShipmentService shipmentService)
+        public HomeController(ILogger<HomeController> logger, IShipmentService shipmentService)
         {
+            _logger = logger;
             _shipmentService = shipmentService;
         }
 
@@ -34,7 +35,6 @@ namespace PraticaSettimanaleS5.Controllers
         public IActionResult Search(string idNumber, string trackingNumber)
         {
             var updates = _shipmentService.GetShipmentUpdates(idNumber, trackingNumber);
-
             if (updates.Count == 0)
             {
                 ViewBag.ErrorMessage = "Cliente o spedizione non trovati.";
@@ -43,7 +43,6 @@ namespace PraticaSettimanaleS5.Controllers
             {
                 ViewBag.Updates = updates;
             }
-
             return View();
         }
 

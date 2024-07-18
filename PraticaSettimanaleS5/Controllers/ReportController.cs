@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace PraticaSettimanaleS5.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "EmployeePolicy")]
     public class ReportController : Controller
     {
         private readonly string _connectionString;

@@ -1,9 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using PraticaSettimanaleS5.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.SqlClient;
 
 namespace PraticaSettimanaleS5.Services
 {
@@ -35,8 +34,8 @@ namespace PraticaSettimanaleS5.Services
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.Add(new SqlParameter("@idNumber", SqlDbType.NVarChar) { Value = idNumber });
-                    command.Parameters.Add(new SqlParameter("@trackingNumber", SqlDbType.NVarChar) { Value = trackingNumber });
+                    command.Parameters.AddWithValue("@idNumber", idNumber);
+                    command.Parameters.AddWithValue("@trackingNumber", trackingNumber);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -53,7 +52,6 @@ namespace PraticaSettimanaleS5.Services
                     }
                 }
             }
-
             return updates;
         }
     }

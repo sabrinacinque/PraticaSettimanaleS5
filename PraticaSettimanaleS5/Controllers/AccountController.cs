@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using PraticaSettimanaleS5.Services;
 using PraticaSettimanaleS5.Models;
-using System.Collections.Generic;
+using PraticaSettimanaleS5.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -11,41 +10,37 @@ namespace PraticaSettimanaleS5.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAuthService _authenticationService;
+        private readonly IAuthService _authService;
 
-        public AccountController(IAuthService authenticationService)
+        public AccountController(IAuthService authService)
         {
-            _authenticationService = authenticationService;
+            _authService = authService;
         }
 
-        public IActionResult Login()
+        public IActionResult Login([FromQuery] string returnUrl = "/")
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(ApplicationUser user)
+        public async Task<IActionResult> Login(ApplicationUser model, [FromQuery] string returnUrl = "/")
         {
-            try
+            var user = _authService.Login(model.Username, model.Password);
+            if (user != null)
             {
-                var u = _authenticationService.Login(user.Username, user.Password);
-                if (u == null) return RedirectToAction("Login");
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, u.Username),
-                    new Claim("FriendlyName", u.FriendlyName ?? string.Empty)
+                var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Role)
                 };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(identity));
+                return Redirect(returnUrl);
             }
-            catch (Exception ex)
-            {
-                // Gestisci l'eccezione (log, ecc.)
-            }
-            return RedirectToAction("Index", "Home");
+            ViewData["ReturnUrl"] = returnUrl;
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(model);
         }
 
         public async Task<IActionResult> Logout()

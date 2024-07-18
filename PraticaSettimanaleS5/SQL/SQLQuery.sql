@@ -63,13 +63,18 @@ SELECT * FROM STATISPEDIZIONI;
 
 SELECT * FROM CLIENTI;
 
+SELECT * FROM USERS;
+
+
 
 CREATE TABLE Users (
     Id INT PRIMARY KEY IDENTITY,
     Username NVARCHAR(100) NOT NULL,
     Password NVARCHAR(100) NOT NULL,
-    FriendlyName NVARCHAR(100)
+    Role NVARCHAR(100) NOT NULL
 );
 
-INSERT INTO Users (Username, Password, FriendlyName)
-VALUES ('admin', 'adminpassword', 'Administrator');
+INSERT INTO Users (Username, Password, Role)
+VALUES 
+    ('admin', 'adminpassword', 'Admin'),
+    ('employee', 'employeepassword', 'Employee');
