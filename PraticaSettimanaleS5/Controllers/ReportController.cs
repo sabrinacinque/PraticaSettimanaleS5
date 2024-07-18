@@ -89,7 +89,7 @@ namespace PraticaSettimanaleS5.Controllers
                     WHERE SpedizioneId NOT IN (
                         SELECT SpedizioneId FROM StatiSpedizioni
                         WHERE Stato = 'Consegnato')";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))//Questa condizione specifica che stiamo cercando solo quelle spedizioni il cui SpedizioneId non appare nell'elenco restituito dalla sottoquery.La sottoquery seleziona tutti gli SpedizioneId dalla tabella StatiSpedizioni dove lo stato è "Consegnato".
                 {
                     count = (int)cmd.ExecuteScalar();
                 }

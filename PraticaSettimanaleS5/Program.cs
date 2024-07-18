@@ -17,13 +17,12 @@ builder.Services
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("EmployeePolicy", policy => policy.RequireRole("Employee", "Admin")); // Entrambi i ruoli possono accedere
+    options.AddPolicy("EmployeePolicy", policy => policy.RequireRole("Employee", "Admin")); // Qui dico che entrambi i ruoli possono accedere
 });
 
 // Configurazione del servizio di gestione delle autenticazioni
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IShipmentService, ShipmentService>(); // Aggiungi questa linea per registrare IShipmentService
-
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

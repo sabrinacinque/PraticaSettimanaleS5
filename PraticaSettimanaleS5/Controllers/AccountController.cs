@@ -27,24 +27,24 @@ namespace PraticaSettimanaleS5.Controllers
         public async Task<IActionResult> Login(ApplicationUser model, [FromQuery] string returnUrl = "/")
         {
             var user = _authService.Login(model.Username, model.Password);
-            if (user != null)
+            if (user != null)//Se l'autenticazione ha successo (user != null), viene creato un elenco di claim contenente il nome utente e il ruolo dell'utente.
             {
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, user.Username),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);//Viene creata una ClaimsIdentity con i claim e lo schema di autenticazione.
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,//L'utente viene autenticato utilizzando HttpContext.SignInAsync, che crea una sessione di autenticazione basata su cookie.
                     new ClaimsPrincipal(identity));
-                return Redirect(returnUrl);
+                return Redirect(returnUrl);//L'utente viene reindirizzato all'URL di ritorno specificato.
             }
             ViewData["ReturnUrl"] = returnUrl;
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");//Se l'autenticazione fallisce, viene impostato un messaggio di errore nel ModelState e viene restituita la vista di login con il modello corrente.
             return View(model);
         }
 
         public async Task<IActionResult> Logout()
-        {
+        {//HttpContext.SignOutAsync viene chiamato per terminare la sessione di autenticazione dell'utente.
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

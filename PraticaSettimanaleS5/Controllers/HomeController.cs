@@ -32,6 +32,13 @@ namespace PraticaSettimanaleS5.Controllers
         }
 
         [HttpPost]
+        public IActionResult SubmitContact(string firstName, string lastName, string email, string message)
+        {
+            // Non voglio fare nulla di che in questa pagina,semplicemente la conferma dell'invio
+            return Ok();
+        }
+
+        [HttpPost]
         public IActionResult Search(string idNumber, string trackingNumber)
         {
             var updates = _shipmentService.GetShipmentUpdates(idNumber, trackingNumber);
